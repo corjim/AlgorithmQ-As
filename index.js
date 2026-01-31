@@ -387,4 +387,299 @@ function century(year) {
 // +9 dog years for second year
 // +5 dog years for each year after that.
 
+var humanYearsCatYearsDogYears = function (humanYears) {
+    let catYears = 0;
+    let dogYears = 0;
+
+    if (humanYears === 1) {
+        catYears = 15;
+        dogYears = 15;
+    } else if (humanYears === 2) {
+        catYears = 15 + 9;
+        dogYears = 15 + 9;
+    } else if (humanYears > 2) {
+        catYears = 15 + 9 + (humanYears - 2) * 4;
+        dogYears = 15 + 9 + (humanYears - 2) * 5;
+    }
+
+    return [humanYears, catYears, dogYears];
+};
+// Given a string, return true if the string is a palidrome or false if it is not. Palidrome are strings that form the same word if it is reversed.
+// palidrome("kayak") == true
+// palidrome(madam) == true
+function palidrome(word) {
+    let reserveStr = "";
+    for (char of word) {
+        // str = str + char;
+        reserveStr = char + reserveStr;
+    }
+    return reserveStr === word;
+
+
+    // const reversed = word.split("").reverse().join("")
+    // return word === reversed;
+}
+
+
+// Given a string, return a new string with the reversed order of the characters.
+// Examples reverse("hello") === "olleh"
+function reverse(str) {
+    let reverseStr = "";
+    for (let i = str.length - 1; i >= 0; i--) {
+        reverseStr += str[i]
+    }
+    return reverseStr;
+
+    // return str.split("").reverse().join("") using the build in function.
+}
+
+function reverse(str) {
+    let reverseStr = "";
+    for (let char of str) {
+        console.log(char)
+        reverseStr = char + reverseStr
+    }
+    return reverseStr;
+
+    // Example Walkthrough: Suppose str = "abc"
+    // Start: reverseStr = ""
+    // First loop: char = "a"
+    // reverseStr = "a" + "" = "a"
+    // Second loop: char = "b"
+    // reverseStr = "b" + "a" = "ba"
+    // Third loop: char = "c"
+    // reverseStr = "c" + "ba" = "cba"
+
+}
+
+// Given a string, return the character that is most commonly used in the string.
+// maxChar("sbdddrd") ==> d
+function maxChar(str) {
+    const charMap = {};
+    let max = 0;
+    let maxChar = '';
+    for (let char of str) {
+        if (charMap[char]) {
+            charMap[char] = charMap[char] + 1
+        } else {
+            charMap[char] = 1
+        }
+    }
+    for (let key in charMap) {
+        console.log(key, ":", charMap[key]); // A : 2 
+        if (charMap[key] > max) {
+            max = charMap[key];
+            maxChar = key
+        }
+        return maxChar;
+    }
+
+    return maxChar;
+    // OLD SYNTAX
+    // for(const [key, value] of Object.entries(charMap)){
+    //     console.log(key, value);
+    //     if(value > max){
+    //         max = value;
+    //         maxChar = key
+    //     }
+    // }
+
+}
+
+// Given an array and chunk size, divide the array into many subarrays where each array is of the length size.
+// chunk([1,2,3,4], 2) ==> [[1,2], [3,4]]
+// chunk([1,2,3,4,5], 2) ==> [[1,2], [3,4], [5]]
+
+function chunk(array, size) {
+    const result = [];
+    let index = 0;
+    while (index < array.length) {
+        result.push(array.slice(index, index + size));
+        index += size;
+
+    }
+    return result;
+}
+
+function chunkForLoop(array, size) {
+    const result = [];
+    for (let i = 0; i < array.length; i += size) {
+        const chunk = [];
+        for (let j = i; j < i + size && array.length; j++) {
+            chunk.push(array[j]);
+        }
+        console.log(i)
+        result.push(chunk)
+    }
+    return result;
+
+    // array = [1, 2, 3, 4, 5, 6, 7];
+    //size = 3;
+
+    // Iteration 1(i = 0):
+    //     j = 0 → chunk = [1]
+    //     j = 1 → chunk = [1, 2]
+    //     j = 2 → chunk = [1, 2, 3]
+    //     result = [[1, 2, 3]]
+
+    // Iteration 2(i = 3):
+    //     j = 3 → chunk = [4]
+    //     j = 4 → chunk = [4, 5]
+    //     j = 5 → chunk = [4, 5, 6]
+    //     result = [[1, 2, 3], [4, 5, 6]]
+
+    // Iteration 3(i = 6):
+    //     j = 6 → chunk = [7]
+    //     result = [[1, 2, 3], [4, 5, 6], [7]]
+
+}
+
+
+// Write a function that accepts a string. The function should return capitalize letter of each word in the string then return return the capitalized string.
+// capitalize("boy love girl") ==. "Boy Love Girl"
+function capitalize(str) {
+    const words = str.split(" "); //Turn the strings to array
+    // "boy love girl"
+    // ['boy', 'love', 'girl']
+
+    const resultStr = [];
+    for (char of words) { // loop thru word lik b..o..y
+        resultStr.push(char[0].upperCase() + char.slice(1))
+    }
+    return resultStr.join(" ")
+
+    //USING THE MAP METHOD
+    // return words.map(word => word[0].toUpperCase() + word.slice[1]).join(" ")
+}
+
+
+
+// Write a function that returns the number of vowels used in a string.
+// vowels("encounter love") ==> 6
+function vowels(str) {
+    let count = 0;
+    //const word = str.split(" ")
+
+    for (let vowel of str.toLowerCase()) {
+
+        console.log(vowel)
+        if (vowel == "a" || vowel == 'e' || vowel == 'i' || vowel == 'o' || vowel == 'u') {
+            count++;
+        }
+    }
+    return count;
+
+    //USING REGULAR EXPRESSION
+
+    // const matches = str.match(/[aeiou]/gi) // g means go thru all the express(aeiou) and i means case sensitvity.
+    // return matches ? matches.length : 0;
+}
+
+function countVowelsLoop(str) {
+    let count = 0;
+    const vowels = "aeiou";
+
+    for (let i = 0; i < str.length; i++) {
+        let char = str[i].toLowerCase(); // to handle uppercase vowels
+        if (vowels.indexOf(char) !== -1) {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+
+// Write a program that console log the numbers from 1 to n. But for multiples of three print "Fizz" instead of the number and for the muliples of five print "Buzz". For numbers which are multiples of both three and five print "fizzbuzz"
+// fizzbuzz(5) ==> 1 2 fizz 4 buzz
+function fizzbuzz(n) {
+    for (let i = 1; i < n; i++) {
+
+        if (i % 3 == 0 && i % 5 === 0) {
+            console.log("fizzbuzz")
+        } else if (i % 5 === 0) {
+            console.log("buzz")
+        } else if (i % 3 === 0) {
+            console.log("fizz")
+        } else {
+            console.log(i)
+        }
+    }
+}
+
+
+// Given a non-empty array of integers, return the result of multiplying the values together in order
+function grow(arr) {
+
+    let results;
+
+    for (i = 0; i < arr.length; i++) {
+
+        const arrProduct = arr[i]
+
+        results *= arrProduct
+    }
+
+    return results;
+}
+
+
+// Our football team has finished the championship.
+
+// Our team's match results are recorded in a collection of strings. Each match is represented by a string in the format "x:y", where x is our team's score and y is our opponents score.
+
+// For example: ["3:1", "2:2", "0:1", ...]
+
+function points(games) {
+    let totalScore = 0;
+
+    games.map((g) => {
+        const scoreValue = g.split(":");
+        const x = Number(scoreValue[0]);
+        const y = Number(scoreValue[1]);
+
+        if (x > y) {
+            totalScore += 3;
+        } else if (x === y) {
+            totalScore += 1;
+        }
+    });
+
+    return totalScore;
+}
+
+
+// eliminating the split method
+function points(games) {
+    // Declare a base point.
+    let totalScore = 0
+
+    // map thru the array of scores
+    games.map((g) => {
+        const x = g[0];
+        const y = g[2];
+        if (x > y) {
+            totalScore += 3
+        } else if (x === y) {
+            totalScore += 1
+        }
+    })
+
+    return totalScore;
+
+}
+
+// Complete the method that takes a boolean value and return a "Yes" string for true, or a "No" string for false.
+
+function boolToWord(bool) {
+    if (bool) {
+        return "Yes"
+    } else {
+        return "No"
+    }
+}
+
+function boolToWord(bool) {
+    return bool ? "Yes" : "No"
+}
 
