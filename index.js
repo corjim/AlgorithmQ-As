@@ -430,7 +430,6 @@ function reverse(str) {
     }
     return reverseStr;
 
-    // return str.split("").reverse().join("") using the build in function.
 }
 
 function reverse(str) {
